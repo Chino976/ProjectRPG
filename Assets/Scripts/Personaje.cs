@@ -6,10 +6,10 @@ public class Personaje : MonoBehaviour
 {
     GameObject tablero;
     GameObject[] Rango;
-    
+
     public int kRango;
-    public int posActualX;
-    public int posActualZ;
+    public int PosActualX;
+    public int PosActualZ;
 
     public void setPos(float x, float z)
     {
@@ -19,13 +19,16 @@ public class Personaje : MonoBehaviour
     void OnMouseDown() {
         tablero = GameObject.FindWithTag("Tablero");
         int sizeTablero = tablero.GetComponent<CrearCasilla>().Filas*tablero.GetComponent<CrearCasilla>().Columnas;
-        print("Click en personaje" + sizeTablero.ToString());
+        print("Pos personaje (" + posActualX.ToString());
 
         Rango = new GameObject[kRango];
 
-        for( int i = 0; i < sizeTablero; i++ )
+        for( int i = 0; i < kRango; i++ )
         {
+            for( int j = 0; j < sizeTablero; j++ )
+            {
 
+            }
         }
     }
 }
