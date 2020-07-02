@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorCasilla: {fileID: 0}
-  NumCasilla: 1
-  personaje: {fileID: 1070817861125538314, guid: 6fd9e96f1970d4842b3575c0c7cfde22,
-    type: 3}
+  rangoColor: {fileID: 2100000, guid: 91d5f098a985529459f007bc6ba6ea69, type: 2}
+  posCasillaX: 1
+  posCasillaZ: 1
+  activa: 0

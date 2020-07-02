@@ -712,11 +712,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574eff8837779f447833a0ed02331a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CasillaPrefab: {fileID: 4461888089090335857, guid: 038aa4ce81962a84ea7bd306d3989c8b,
+  casillaPrefab: {fileID: 4461888089090335857, guid: 038aa4ce81962a84ea7bd306d3989c8b,
     type: 3}
-  Personaje: {fileID: 4837253760709331947, guid: aae002001b891ca4b8fc07c7de5bb515,
+  personaje: {fileID: 4837253760709331947, guid: aae002001b891ca4b8fc07c7de5bb515,
     type: 3}
-  Filas: 12
-  Columnas: 12
-  Blanco: {fileID: 2100000, guid: c624a745182310740b0a5dfb7f8a4bd6, type: 2}
-  Negro: {fileID: 2100000, guid: 0b0ca3dba5062b7429b114d1eb833b53, type: 2}
+  filas: 12
+  columnas: 12
+  blanco: {fileID: 2100000, guid: c624a745182310740b0a5dfb7f8a4bd6, type: 2}
+  negro: {fileID: 2100000, guid: 0b0ca3dba5062b7429b114d1eb833b53, type: 2}

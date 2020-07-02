@@ -4,38 +4,41 @@ using UnityEngine;
 
 public class CrearCasilla : MonoBehaviour
 {
-    public GameObject CasillaPrefab;
+    public GameObject casillaPrefab;
+    public GameObject personaje;
+    
+    public List<GameObject> casillas;
+    
+    public int filas;
+    public int columnas;
 
-    public GameObject Personaje;
-    public int Filas;
-    public int Columnas;
-
-    public Material Blanco;
-    public Material Negro;
+    public Material blanco;
+    public Material negro;
 
     public void Crear()
     {
-        Instantiate(Personaje);
+        Instantiate(personaje);
 
-
-        for( int i = 0; i < Columnas; i++ )
+        casillas = new List<GameObject>();
+        
+        for( int i = 0; i < columnas; i++ )
         {
-            for( int j = 0; j < Filas; j++ )
+            for( int j = 0; j < filas; j++ )
             {
-                GameObject casillaTemp = Instantiate(CasillaPrefab,new Vector3(j,0,i),Quaternion.identity);
+                GameObject casillaTemp = Instantiate(casillaPrefab,new Vector3(j,0,i),Quaternion.identity);
 
                 if( (i+j) % 2 == 0)
                 {
-                    casillaTemp.GetComponent<Casilla>().PonerColor( Negro );
+                    casillaTemp.GetComponent<Casilla>().PonerColor( negro );
                 }else{
-                    casillaTemp.GetComponent<Casilla>().PonerColor( Blanco );
+                    casillaTemp.GetComponent<Casilla>().PonerColor( blanco );
                 }
-                casillaTemp.GetComponent<Casilla>().PosCasillaX = j;
-                casillaTemp.GetComponent<Casilla>().PosCasillaZ = i;
+                casillaTemp.GetComponent<Casilla>().posCasillaX = j;
+                casillaTemp.GetComponent<Casilla>().posCasillaZ = i;
+                
+                casillas.Add(casillaTemp);
 
             }
-
-
 
         }
     }
