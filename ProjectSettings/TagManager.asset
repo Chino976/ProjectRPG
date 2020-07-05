@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tablero
+  - PJ1
+  - PJ2
+  - PJ3
+  - Casilla
+  - Rango
   layers:
   - Default
   - TransparentFX

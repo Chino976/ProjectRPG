@@ -4,66 +4,52 @@ using UnityEngine;
 
 public class Personaje : MonoBehaviour
 {
-    GameObject tablero;
-    public List<GameObject> casillas = new List<GameObject>();
     
-    public int kRango = 2;
-    public int posActualX;
-    public int posActualZ;
-    bool pjSeleccionado = false;
+    // Posicion actual del personaje
+    public GameObject rango;
+    
+    // Se toman todos los datos del tablero
+    GameObject tablero;
+    
+    int posActualX;
+    int posActualZ;
 
-    public void setPos(float x, float z)
+
+    void Start()
     {
+        tablero = GameObject.FindWithTag("Tablero");
+        
+        Vector3 posInicial = new Vector3(0,0,0);
+        posInicial = transform.position;
+
+        posActualX = (int)posInicial.x;
+        posActualZ = (int)posInicial.z;
+        
+    }
+    
+    // Setea la posicion del personaje
+    public void SetPos(float x, float z)
+    {
+        // Cambian los valores de posicion
         transform.position = new Vector3(x, 1.1f, z);
         posActualX = (int)x;
         posActualZ = (int)z;
-        pjSeleccionado = false;
-    }
-
-    void OnMouseDown() {
-        
-        pjSeleccionado = true;
-        
-        tablero = GameObject.FindWithTag("Tablero");
-        int filas = tablero.GetComponent<CrearCasilla>().filas;
-        int columnas = tablero.GetComponent<CrearCasilla>().columnas;
-        int numCasillas = filas*columnas;
-        
-        List<GameObject> todasCasillas = tablero.GetComponent<CrearCasilla>().casillas;
-        
-        print("Pos personaje (" + posActualX.ToString() + "," + posActualZ.ToString() + ")");
-
-        //casillas = new List<GameObject>();
-        
-        for( int i = posActualZ-kRango; i < 1+posActualZ+kRango; i++ )
-        {
-            for( int j = posActualX-kRango; j < 1+posActualX+kRango; j++ )
-            {
-                for( int k = 0; k < numCasillas; k++)
-                {
-                    int xPos = todasCasillas[k].GetComponent<Casilla>().posCasillaX;
-                    int zPos = todasCasillas[k].GetComponent<Casilla>().posCasillaZ;
-                    
-                    if( xPos == j && zPos == i )
-                    {
-                        todasCasillas[k].GetComponent<Casilla>().Seleccionar(true);
-                        casillas.Add(todasCasillas[k]);
-                    }
-                }
-            }
-        }
-        
+        tablero.GetComponent<Tablero>().Deseleccionar();
     }
     
-    void Update()
-    {    
-        if(!pjSeleccionado && casillas.Count > 0)
+    void OnMouseDown() {
+        
+        if( tablero.GetComponent<Tablero>().pjSeleccionado )
         {
-            print("personaje deseleccionado");
-            foreach(GameObject i in casillas){
-                i.GetComponent<Casilla>().Seleccionar(false);
-            }
-            casillas.Clear();
+            tablero.GetComponent<Tablero>().Deseleccionar();
+            
+        }else{
+            
+            rango.GetComponent<Rango>().Seleccionar(posActualX,posActualZ);
+            tablero.GetComponent<Tablero>().tagPersonaje = gameObject.tag;
+            tablero.GetComponent<Tablero>().pjSeleccionado = true;
         }
+            
     }
+
 }

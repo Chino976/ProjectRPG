@@ -6,55 +6,51 @@ public class Casilla : MonoBehaviour
 {
     public Material colorCasilla;
     public Material rangoColor;
-    public int posCasillaX = 1;
-    public int posCasillaZ = 1;
-    bool activa = false;
-    bool colorAplicado = true;
+    
+    public Vector3 pos;
 
     GameObject personaje;
+    GameObject tablero;
     
-    void OnMouseDown() {
-        
-        print ("Has clickeado en la casilla (" + posCasillaX.ToString() + "," + posCasillaZ.ToString() + ") - Activada: " + activa);
-        
-        if(activa)
-        {
-            personaje = GameObject.FindWithTag("Player");
+    public bool casillaActiva = false;
     
-            Vector3 pos = new Vector3(0,0,0);
-            pos = transform.position;
-            
-            personaje.GetComponent<Personaje>().setPos(pos.x,pos.z);
-            
-        }
-        
-    }
-    
-    public void Seleccionar( bool activar )
+    void Start()
     {
-        activa = activar;
-        colorAplicado = false;
+        GetComponent<MeshRenderer> ().material = colorCasilla;
+        pos = transform.position;
+        tablero = GameObject.FindWithTag("Tablero");
     }
 
-    public void PonerColor( Material color_ )
-    {
-        GetComponent<MeshRenderer> ().material = color_;
-        colorCasilla = color_;
-    }
-    
-    void Update()
-    {
-        if(activa && !colorAplicado)
+    void OnMouseDown() {
+
+        print ("Has clickeado en la casilla (" + pos.x + "," + pos.z + ") - Activada: " + casillaActiva);
+        if(casillaActiva)
         {
-            print("color de seleccion");
-            GetComponent<MeshRenderer> ().material = rangoColor;
-            colorAplicado = true;
-            
-        }else if (!activa && !colorAplicado){
-            print("color sin seleccion");
-            GetComponent<MeshRenderer> ().material = colorCasilla;
-            colorAplicado = true;
+            personaje = GameObject.FindWithTag( tablero.GetComponent<Tablero>().tagPersonaje ); // Se busca el personaje en la escena con e tag indicado
+            personaje.GetComponent<Personaje>().SetPos(pos.x, pos.z); // se envia la posicion para realizar el movimiento
         }
-        
+
     }
+
+    public void Validar( bool estado )
+    {
+        if(estado)
+        {
+            GetComponent<MeshRenderer> ().material = rangoColor; //Se setea el color de seleccion
+        }else{
+            GetComponent<MeshRenderer> ().material = colorCasilla;
+        }
+        casillaActiva = estado;
+    }
+
+
+    public void OnTriggerEnter( Collider collider )
+    {
+        if (collider.gameObject.tag == "Rango" && !casillaActiva )
+        {
+            tablero.GetComponent<Tablero>().casillasRango.Add( gameObject );
+            Validar( true );
+        }
+    }
+
 }
